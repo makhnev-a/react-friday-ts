@@ -1,0 +1,9 @@
+.btn {
+    padding: 12px 30px;
+    border: 1px solid #ccc;
+    background-color: darkcyan;
+    border-radius: 25px;
+    color: #fff;
+    text-transform: uppercase;
+    font-style: italic;
+}

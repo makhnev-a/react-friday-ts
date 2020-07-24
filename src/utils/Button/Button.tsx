@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './Button.module.css'
 
 type PropsType = {
     text: string
@@ -8,7 +9,7 @@ type PropsType = {
 export const Button = (props: PropsType) => {
     return (
         <div>
-            <button>{props.text}</button>
+            <button className={styles.btn}>{props.text}</button>
         </div>
     );
 };
