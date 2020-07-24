@@ -1,4 +1,6 @@
 .nav {
     display: flex;
     justify-content: space-around;
+    background-color: rosybrown;
+    padding: 35px 0;
 }
