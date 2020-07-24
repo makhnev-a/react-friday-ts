@@ -1,7 +1,14 @@
 import React from "react";
 
-export const Button = () => {
+type PropsType = {
+    text: string
+    clickHandler?: () => void
+};
+
+export const Button = (props: PropsType) => {
     return (
-        <h1>Button component</h1>
+        <div>
+            <button>{props.text}</button>
+        </div>
     );
 };

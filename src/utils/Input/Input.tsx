@@ -1,7 +1,19 @@
 import React from "react";
 
-export const Input = () => {
+type PropsType = {
+    type: string
+    placeholder: string
+    value?: string
+    changeHandler?: () => void
+};
+
+export const Input = (props: PropsType) => {
     return (
-        <h1>Input component</h1>
+        <div>
+            <input
+                type={props.type}
+                placeholder={props.placeholder}
+            />
+        </div>
     );
 };
