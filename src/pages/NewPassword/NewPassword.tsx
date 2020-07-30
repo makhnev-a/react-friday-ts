@@ -2,7 +2,7 @@ import React from "react";
 import {Input} from "../../utils/Input/Input";
 import {Button} from "../../utils/Button/Button";
 
-export const NewPassword = () => {
+export const NewPassword: React.FC = () => {
     return (
         <>
             <h1>NewPassword page</h1>
