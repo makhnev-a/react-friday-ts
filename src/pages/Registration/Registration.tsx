@@ -2,7 +2,7 @@ import React from "react";
 import {Input} from "../../utils/Input/Input";
 import {Button} from "../../utils/Button/Button";
 
-export const Registration = () => {
+export const Registration: React.FC = () => {
     return (
         <>
             <h1>Registration page</h1>
