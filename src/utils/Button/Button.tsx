@@ -6,10 +6,15 @@ type PropsType = {
     clickHandler?: () => void
 };
 
-export const Button = (props: PropsType) => {
+export const Button = ({text, clickHandler}: PropsType) => {
+    const onClickHandler = () => clickHandler && clickHandler();
+
     return (
         <div>
-            <button className={styles.btn}>{props.text}</button>
+            <button
+                className={styles.btn}
+                onClick={onClickHandler}
+            >{text}</button>
         </div>
     );
 };
