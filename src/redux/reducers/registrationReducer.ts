@@ -23,40 +23,40 @@ const initialState = {
 
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionTypes): any => {
     switch (action.type) {
-        case 'react-friday-ts/registrationReducer/SET-EMAIL-SECCESS':
+        case 'react-friday-ts/registrationReducer/SET-EMAIL-SUCCESS':
             return {
                 ...state,
                 email: action.newEmail
-            }
-        case 'react-friday-ts/registrationReducer/SET-PASSWORD-SECCESS':
+            };
+        case 'react-friday-ts/registrationReducer/SET-PASSWORD-SUCCESS':
             return {
                 ...state,
                 password: action.newPassword
-            }
-        case 'react-friday-ts/registrationReducer/SET-PASSWORD2-SECCESS':
+            };
+        case 'react-friday-ts/registrationReducer/SET-PASSWORD2-SUCCESS':
             return {
                 ...state,
                 password2: action.newPassword2
-            }
-        case 'react-friday-ts/registrationReducer/SET-SUCCESS-SECCESS':
+            };
+        case 'react-friday-ts/registrationReducer/SET-SUCCESS-SUCCESS':
             return {
                 ...state,
                 success: action.success,
                 error: ''
-            }
-        case 'react-friday-ts/registrationReducer/SET-LOADING-SECCESS':
+            };
+        case 'react-friday-ts/registrationReducer/SET-LOADING-SUCCESS':
             return {
                 ...state,
                 loading: action.loading,
                 success: false,
                 error: '',
-            }
-        case 'react-friday-ts/registrationReducer/SET-ERROR-SECCESS':
+            };
+        case 'react-friday-ts/registrationReducer/SET-ERROR-SUCCESS':
             return {
                 ...state,
                 success: false,
                 error: action.error
-            }
+            };
         default:
             return state;
     }
@@ -67,27 +67,27 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 export const actions = {
 
     setEmail: (newEmail: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-EMAIL-SECCESS',
+        type: 'react-friday-ts/registrationReducer/SET-EMAIL-SUCCESS',
         newEmail
     } as const),
     setPassword: (newPassword: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-PASSWORD-SECCESS',
+        type: 'react-friday-ts/registrationReducer/SET-PASSWORD-SUCCESS',
         newPassword
     } as const),
     setPassword2: (newPassword2: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-PASSWORD2-SECCESS',
+        type: 'react-friday-ts/registrationReducer/SET-PASSWORD2-SUCCESS',
         newPassword2
     } as const),
     setSuccess: (success: boolean) => ({
-        type: 'react-friday-ts/registrationReducer/SET-SUCCESS-SECCESS',
+        type: 'react-friday-ts/registrationReducer/SET-SUCCESS-SUCCESS',
         success
     } as const),
     setLoading: (loading: boolean) => ({
-        type: 'react-friday-ts/registrationReducer/SET-LOADING-SECCESS',
+        type: 'react-friday-ts/registrationReducer/SET-LOADING-SUCCESS',
         loading
     } as const),
     setError: (error: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-ERROR-SECCESS',
+        type: 'react-friday-ts/registrationReducer/SET-ERROR-SUCCESS',
         error
     } as const),
 };
@@ -103,27 +103,23 @@ export const registerUser = (email: string, password: string, password2: string)
     ThunkType => (dispatch: ThunkDispatchType) => {
     /* let email = getState().registration.email;
      let password = getState().registration.password;*/
-    dispatch(actions.setLoading(true))
+    dispatch(actions.setLoading(true));
     if (password !== password2) {
-        dispatch(actions.setError('Correct your password'))
-        dispatch(actions.setPassword2(''))
-        dispatch(actions.setLoading(false))
+        dispatch(actions.setLoading(false));
+        dispatch(actions.setError('Correct your password'));
+        dispatch(actions.setPassword2(''));
     } else {
         apiMethods.register(email, password)
             .then(data => {
+                debugger
                 if (data.success) {
-                    dispatch(actions.setSuccess(true))
-                    dispatch(actions.setEmail(''))
-                    dispatch(actions.setPassword(''))
-                    dispatch(actions.setPassword2(''))
-                    dispatch(actions.setLoading(false))
+                    dispatch(actions.setSuccess(true));
                 }
             })
-            .catch(error => {
-                console.log(error)
+            .catch(() => {
+                dispatch(actions.setLoading(false));
                 dispatch(actions.setSuccess(false));
-                dispatch(actions.setError(error));
-                dispatch(actions.setLoading(false))
+                dispatch(actions.setError('Invalid login or password. Try again'));
             })
     }
-}
+};
