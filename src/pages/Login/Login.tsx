@@ -4,23 +4,35 @@ import {Button} from "../../utils/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {actions, setLogin} from '../../redux/reducers/loginReducer';
+import {Redirect} from 'react-router-dom';
 
 export const Login: React.FC = () => {
 
-    const {email, password} = useSelector((state: AppStateType) => state.login);
+    const {email, password, loading, error, auth, rememberMe} = useSelector((state: AppStateType) => state.login);
     const dispatch = useDispatch();
 
     const login = () => {
-        setLogin({
-            "email": email,
-            "password": password,
-            "rememberMe": "false"
-        });
+        dispatch(actions.setLoadingSuccess(true));
+        dispatch(setLogin({
+            email,
+            password,
+            rememberMe
+        }));
     };
+
+    if (auth) {
+        return <Redirect to={'/profile'}/>
+    }
 
     return (
         <>
             <h1>Login page</h1>
+            {loading
+                ? <span>Loading...</span>
+                : error
+                    ? <span>Invalid login or password. Try again</span>
+                    : ''}
+
             <form>
                 <Input type={'text'}
                        placeholder={'Enter you email'}
@@ -30,7 +42,14 @@ export const Login: React.FC = () => {
                        placeholder={'Enter you password'}
                        value={password}
                        changeHandler={(e) => dispatch(actions.setPasswordSuccess(e.currentTarget.value))}/>
+                <label>
+                    <Input type={'checkbox'}
+                           checked={rememberMe}
+                           description={'Remember me'}
+                           changeHandler={(e) => dispatch(actions.setRememberMeSuccess(e.currentTarget.checked))}/>
+                </label>
                 <Button text={'login'}
+                        isDisabled={loading}
                         clickHandler={login}/>
             </form>
         </>
