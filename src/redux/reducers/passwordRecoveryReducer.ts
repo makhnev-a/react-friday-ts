@@ -12,7 +12,7 @@ type InitialStateType = {
 };
 
 const initialState = {
-    title: 'Password Recovery',
+    title: '',
     loading: false,
     isAuth: false,
     serverAnswer: ''
@@ -21,6 +21,7 @@ const initialState = {
 export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: any): any => {
     switch (action) {
         case SET_SERVER_ANSWER:
+            debugger
             return {...state, serverAnswer: action.answer};
         default:
             return state;

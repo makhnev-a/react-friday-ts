@@ -13,7 +13,8 @@ export const apiMethods = {
     register(email: string, password: string) {
         return instance.post(`auth/register`, {email, password}).then(response => response.data);
     },
-    forgot(email: string, html1?: string, html2?: string) {
+    forgot(email: string) {
+        debugger
         return instance.post(`auth/forgot`, {
             email,
             html1: "<a href='http://localhost:3000/#/reset-password/",
