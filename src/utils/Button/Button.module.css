@@ -7,3 +7,9 @@
     text-transform: uppercase;
     font-style: italic;
 }
+
+.btn:disabled {
+    background-color: rgba(0, 87, 87, 0.78);
+    color: #939393;
+    cursor: progress;
+}
