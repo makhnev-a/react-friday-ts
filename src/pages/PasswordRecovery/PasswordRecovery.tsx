@@ -1,12 +1,12 @@
 import React from "react";
 import {Button} from "../../utils/Button/Button";
 import {Input} from "../../utils/Input/Input";
-import {usersApi} from "../../api/users.api";
+import {apiMethods} from "../../api/api";
 
 export const PasswordRecovery = () => {
     const recoveryHandler = async () => {
-        let users = await usersApi.getUsers();
-        let user = await usersApi.getOneUser('headlulu888@gmail.com');
+        let users = await apiMethods.getUsers();
+        let user = await apiMethods.getOneUser('headlulu888@gmail.com');
         console.log(users, user);
     };
 
