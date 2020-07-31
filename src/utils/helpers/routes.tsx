@@ -9,7 +9,7 @@ import {Profile} from "../../pages/Profile/Profile";
 export const AppRoutes = () => {
     return (
         <>
-            <Route path='/login' render={Login}/>
+            <Route path='/login' render={() => <Login/>}/>
             <Route path='/registration' render={Registration}/>
             <Route path='/new-pass' render={NewPassword}/>
             <Route path='/restore-pass' render={PasswordRecovery}/>

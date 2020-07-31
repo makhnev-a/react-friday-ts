@@ -9,7 +9,7 @@ type PropsType = {
 export const Button = (props: PropsType) => {
     return (
         <div>
-            <button className={styles.btn}>{props.text}</button>
+            <button className={styles.btn} onClick={props.clickHandler}>{props.text}</button>
         </div>
     );
 };
