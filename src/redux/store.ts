@@ -18,3 +18,8 @@ export type InferActionTypes<T> = T extends { [keys: string]: (...args: any[]) =
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+export type InferActionTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;
+
+ // @ts-ignore
+window.store = store;
