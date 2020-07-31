@@ -5,7 +5,6 @@ type PropsType = {
     text: string
     isDisabled?: boolean
     clickHandler?: () => void
-    isDisabled?: boolean
 };
 
 export const Button = (props: PropsType) => {
