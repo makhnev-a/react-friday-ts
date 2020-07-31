@@ -3,13 +3,17 @@ import styles from './Button.module.css'
 
 type PropsType = {
     text: string
+    isDisabled?: boolean
     clickHandler?: () => void
 };
 
 export const Button = (props: PropsType) => {
+
     return (
         <div>
-            <button className={styles.btn}>{props.text}</button>
+            <button className={styles.btn}
+                    onClick={props.clickHandler}
+                    disabled={props.isDisabled}>{props.text}</button>
         </div>
     );
 };

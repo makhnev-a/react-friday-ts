@@ -14,5 +14,7 @@ const rootReducer = combineReducers({
     profile: profileReducer
 });
 
+export type InferActionTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;
+
 export type AppStateType = ReturnType<typeof rootReducer>;
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
