@@ -5,7 +5,7 @@ type PropsType = {
     type: string
     placeholder?: string
     value?: string
-    changeHandler?: (e:ChangeEvent<HTMLInputElement>) => void
+    changeHandler?: (e: ChangeEvent<HTMLInputElement>) => void
     checked?: boolean
     description?: string
 };
@@ -17,8 +17,8 @@ export const Input = (props: PropsType) => {
                 className={props.description ? styles.inputCheckbox : styles.input}
                 type={props.type}
                 placeholder={props.placeholder}
-                value={props.value}
                 onChange={props.changeHandler}
+                value={props.value}
                 checked={props.checked}
             />{props.description}
         </div>
