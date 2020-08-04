@@ -19,7 +19,8 @@ export const apiMethods = {
             email,
             html1: "<a href='http://localhost:3000/#/reset-password/",
             html2: "'>reset-password-link</a>"
-        }).then(response => response.data);
+            }).then(response => response.data);
+        // });
     },
     me(token: string) {
         return instance.post(`auth/me`, {token}).then(response => response.data);
