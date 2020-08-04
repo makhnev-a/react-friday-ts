@@ -14,13 +14,11 @@ export const apiMethods = {
         return instance.post(`auth/register`, {email, password}).then(response => response.data);
     },
     forgot(email: string) {
-        debugger
-        return instance.post(`auth/forgot`, {
+        return instance.post(`/auth/forgot`, {
             email,
-            html1: "<a href='http://localhost:3000/#/reset-password/",
-            html2: "'>reset-password-link</a>"
-            }).then(response => response.data);
-        // });
+            html1: "<a href='http://localhost:3000/#/new-pass/",
+            html2: "'>Set new password</a>"
+        })
     },
     me(token: string) {
         return instance.post(`auth/me`, {token}).then(response => response.data);

@@ -1,9 +1,6 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AppStateType} from "../store";
 import {apiMethods} from "../../api/api";
-import ts from "typescript/lib/tsserverlibrary";
-import emptyArray = ts.server.emptyArray;
-import disableAutomock = jest.disableAutomock;
 
 const SET_SERVER_ANSWER = 'Reducers/PasswordRecovery/SET_SERVER_ANSWER';
 const SET_FORGOT_SUCCESS = 'Reducers/PasswordRecovery/SET_FORGOT_SUCCESS';
@@ -97,18 +94,6 @@ const forgotErrorAc = (error: boolean): SetForgotErrorType => ({type: SET_FORGOT
 // thunks
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
 type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsType>;
-
-// export const resetPassword = (email: string): ThunkType => {
-//     return async (dispatch: ThunkDispatchType) => {
-//         const data = await apiMethods.forgot(email);
-//         console.log(data);
-//         debugger
-//
-//         // data.success
-//         //     ? dispatch(setServerAnswerAc('ok'))
-//         //     : dispatch(setServerAnswerAc('some error'));
-//     };
-// };
 
 export const resetPassword = (email: string): ThunkType => (dispatch: ThunkDispatchType) => {
     const data = apiMethods.forgot(email).then(res => {
