@@ -28,5 +28,8 @@ export const apiMethods = {
     },
     meChange(token: string, name: string, avatar: string) {
         return instance.put(`auth/me`, {token, name, avatar}).then(response => response.data);
+    },
+    getCardsPack(token: string) {
+        return instance.get(`cards/pack?token=${token}`).then(response => response.data);
     }
 };

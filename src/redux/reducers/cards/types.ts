@@ -1,3 +1,5 @@
+import { SET_CARDS_PACK } from "./cardsReducer";
+
 export type OneCardsPackType = {
     _id: string,
     user_id: string,
@@ -17,11 +19,18 @@ export type OneCardsPackType = {
 
 export type InitialStateType = {
     cardPacks: Array<OneCardsPackType>,
-    page: number
-    pageCount: number
-    cardPacksTotalCount: number,
-    minGrade: number,
-    maxGrade: number,
-    token: string,
-    tokenDeathTime: number
+    // page: number
+    // pageCount: number
+    // cardPacksTotalCount: number,
+    // minGrade: number,
+    // maxGrade: number,
+    // token: string,
+    // tokenDeathTime: number
 };
+
+export type SetCardsPackType = {
+    type: typeof SET_CARDS_PACK
+    cardPacks: Array<OneCardsPackType>
+};
+
+export type ActionsType = SetCardsPackType;
