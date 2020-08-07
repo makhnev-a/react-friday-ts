@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
     };
 
     if (auth) {
-        return <Redirect to={'/profile'}/>
+        return <Redirect to={'/cards'}/>
     }
 
     return (

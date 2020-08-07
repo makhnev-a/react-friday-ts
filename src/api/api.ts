@@ -1,4 +1,5 @@
 import {instance} from "./instance.api";
+import {OneCardsPackType} from "../redux/reducers/cards/types";
 
 export const apiMethods = {
     getUsers() {
@@ -31,5 +32,32 @@ export const apiMethods = {
     },
     getCardsPack(token: string) {
         return instance.get(`cards/pack?token=${token}`).then(response => response.data);
+    },
+    addCardsPack(cardsPack: OneCardsPackType, token: string) {
+        return instance.post(`cards/pack`, {cardsPack, token}).then(response => response.data);
+    },
+    deleteCardsPack(token: string, id: string) {
+        return instance.delete(`cards/pack?token=${token}&id=${id}`).then(response => response.data);
+    },
+    updateCardsPack(cardsPack: OneCardsPackType, obj: any, token: string) {
+        return instance.put(`cards/pack`, {
+            cardsPack: {...cardsPack, ...obj},
+            token
+        }).then(response => response.data);
+    },
+    getCards(cardsPackId: number, token: string) {
+        return instance.get(`cards/card?token=${token}&id=${cardsPackId}`)
+    },
+    addCard(card: any, token: string) {
+        return instance.post(`cards/card`, {card, token}).then(response => response.data);
+    },
+    deleteCard(token: string, cardId: any) {
+        return instance.delete(`cards/card?token=${token}&id=${cardId}`).then(response => response.data);
+    },
+    updateCard(card: any, obj: any, token: string) {
+        return instance.put(`cards/card`, {
+            card: {...card, ...obj},
+            token
+        }).then(response => response.data);
     }
 };

@@ -5,13 +5,15 @@ import {registrationReducer} from "./reducers/registrationReducer";
 import {newPasswordReducer} from "./reducers/newPasswordReducer";
 import {passwordRecoveryReducer} from "./reducers/passwordRecoveryReducer";
 import {profileReducer} from "./reducers/profileReducer";
+import {cardsReducer} from "./reducers/cards/cardsReducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
     newPassword: newPasswordReducer,
     passwordRecovery: passwordRecoveryReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    cards: cardsReducer
 });
 
 export type InferActionTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;

@@ -28,5 +28,5 @@ const setCardsPack = (cardPacks: Array<OneCardsPackType>): SetCardsPackType => (
 
 export const getCardPacksThunk = (token: string) => async (dispatch: ThunkDispatchType) => {
     let result = await apiMethods.getCardsPack(token);
-    dispatch(setCardsPack(result.data));
+    dispatch(setCardsPack(result.cardPacks));
 };
