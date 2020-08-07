@@ -4,42 +4,44 @@ import {apiMethods} from '../../api/api';
 
 type InitialStateType = {
     title: string
-    email: string
-    password: string
-    rememberMe: boolean
     loading: boolean
     error: boolean
     auth: boolean
     serverData?: ServerDataType
 };
 
-const initialState = {
+type UserType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+
+type ServerDataType = {
+    created?: string
+    email?: string
+    isAdmin?: boolean
+    name?: string
+    publicCardPacksCount?: number
+    rememberMe?: boolean
+    success?: boolean
+    token?: string
+    tokenDeathTime?: number
+    updated?: string
+    verified?: boolean
+    __v?: number
+    _id?: string
+}
+
+const initialState: InitialStateType = {
     title: 'Login',
-    email: '',
-    password: '',
-    rememberMe: false,
     loading: false,
     error: false,
-    auth: false
+    auth: false,
+    serverData: {}
 };
 
-export const loginReducer = (state: InitialStateType = initialState, action: ActionTypes) => {
+export const loginReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case 'react-friday-ts/loginReducer/SET-EMAIL-SUCCESS':
-            return {
-                ...state,
-                email: action.newTitle
-            };
-        case 'react-friday-ts/loginReducer/SET-PASSWORD-SUCCESS':
-            return {
-                ...state,
-                password: action.newTitle
-            };
-        case 'react-friday-ts/loginReducer/SET-REMEMBER-ME-SUCCESS':
-            return {
-                ...state,
-                rememberMe: action.isRemember
-            };
         case 'react-friday-ts/loginReducer/SET-LOADING-SUCCESS':
             return {
                 ...state,
@@ -60,6 +62,12 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 serverData: action.data
             };
+        case 'react-friday-ts/loginReducer/SET-LOGOUT-SUCCESS':
+            return {
+                ...state,
+                auth: false,
+                serverData: {...state.serverData, token: ''}
+            };
         default:
             return state;
     }
@@ -67,19 +75,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 
 //Action creators
 
-export const actions = {
-    setEmailSuccess: (newTitle: string) => ({
-        type: 'react-friday-ts/loginReducer/SET-EMAIL-SUCCESS',
-        newTitle
-    } as const),
-    setPasswordSuccess: (newTitle: string) => ({
-        type: 'react-friday-ts/loginReducer/SET-PASSWORD-SUCCESS',
-        newTitle
-    } as const),
-    setRememberMeSuccess: (isRemember: boolean) => ({
-        type: 'react-friday-ts/loginReducer/SET-REMEMBER-ME-SUCCESS',
-        isRemember
-    } as const),
+export const actionsLogin = {
     setLoadingSuccess: (isLoading: boolean) => ({
         type: 'react-friday-ts/loginReducer/SET-LOADING-SUCCESS',
         isLoading
@@ -95,60 +91,43 @@ export const actions = {
     setServerDataSuccess: (data: ServerDataType) => ({
         type: 'react-friday-ts/loginReducer/SET-SERVER-DATA-SUCCESS',
         data
+    } as const),
+    setLogoutSuccess: () => ({
+        type: 'react-friday-ts/loginReducer/SET-LOGOUT-SUCCESS',
     } as const)
 };
 
-type ActionTypes = InferActionTypes<typeof actions>
+type ActionTypes = InferActionTypes<typeof actionsLogin>
 
 // Thunk
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>;
 type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypes>;
 
-type UserType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
-
-type ServerDataType = {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    success: boolean
-    token: string
-    tokenDeathTime: number
-    updated: string
-    verified: boolean
-    __v: number
-    _id: string
-}
-
 export const setLogin = (user: UserType): ThunkType => (dispatch: ThunkDispatchType) => {
     apiMethods.login(user.email, user.password, user.rememberMe)
         .then(res => {
-            dispatch(actions.setServerDataSuccess(res));
+            dispatch(actionsLogin.setServerDataSuccess(res));
             dispatch(postToken(res.token));
+            dispatch(actionsLogin.setLoadingSuccess(false));
+            dispatch(actionsLogin.setErrorSuccess(false));
         })
         .catch(() => {
-            dispatch(actions.setLoadingSuccess(false));
-            dispatch(actions.setErrorSuccess(true));
+            dispatch(actionsLogin.setLoadingSuccess(false));
+            dispatch(actionsLogin.setErrorSuccess(true));
         })
 };
 
 export const postToken = (token: string): ThunkType => (dispatch: ThunkDispatchType) => {
     return apiMethods.me(token)
         .then(res => {
-            dispatch(actions.setServerDataSuccess(res));
-            dispatch(actions.setAuthSuccess(true));
+            dispatch(actionsLogin.setServerDataSuccess(res));
+            dispatch(actionsLogin.setAuthSuccess(true));
         })
         .catch(() => {
-            dispatch(actions.setAuthSuccess(false));
-            dispatch(actions.setLoadingSuccess(false));
-            dispatch(actions.setErrorSuccess(true));
+            dispatch(actionsLogin.setAuthSuccess(false));
+            dispatch(actionsLogin.setLoadingSuccess(false));
+            dispatch(actionsLogin.setErrorSuccess(true));
         })
 };
 
