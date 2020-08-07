@@ -4,18 +4,12 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 
 
 type InitialStateType = {
-    email: string
-    password: string
-    password2: string
     loading: boolean
     success: boolean
     error: string
 };
 
 const initialState = {
-    email: '',
-    password: '',
-    password2: '',
     loading: false,
     success: false,
     error: '',
@@ -23,21 +17,6 @@ const initialState = {
 
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionTypes): any => {
     switch (action.type) {
-        case 'react-friday-ts/registrationReducer/SET-EMAIL-SUCCESS':
-            return {
-                ...state,
-                email: action.newEmail
-            };
-        case 'react-friday-ts/registrationReducer/SET-PASSWORD-SUCCESS':
-            return {
-                ...state,
-                password: action.newPassword
-            };
-        case 'react-friday-ts/registrationReducer/SET-PASSWORD2-SUCCESS':
-            return {
-                ...state,
-                password2: action.newPassword2
-            };
         case 'react-friday-ts/registrationReducer/SET-SUCCESS-SUCCESS':
             return {
                 ...state,
@@ -64,20 +43,7 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 
 //Action creators
 
-export const actions = {
-
-    setEmail: (newEmail: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-EMAIL-SUCCESS',
-        newEmail
-    } as const),
-    setPassword: (newPassword: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-PASSWORD-SUCCESS',
-        newPassword
-    } as const),
-    setPassword2: (newPassword2: string) => ({
-        type: 'react-friday-ts/registrationReducer/SET-PASSWORD2-SUCCESS',
-        newPassword2
-    } as const),
+export const actionsRegistration = {
     setSuccess: (success: boolean) => ({
         type: 'react-friday-ts/registrationReducer/SET-SUCCESS-SUCCESS',
         success
@@ -92,7 +58,7 @@ export const actions = {
     } as const),
 };
 
-type ActionTypes = InferActionTypes<typeof actions>
+type ActionTypes = InferActionTypes<typeof actionsRegistration>
 
 //Thunk creators
 
@@ -101,25 +67,21 @@ type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypes>;
 
 export const registerUser = (email: string, password: string, password2: string):
     ThunkType => (dispatch: ThunkDispatchType) => {
-    /* let email = getState().registration.email;
-     let password = getState().registration.password;*/
-    dispatch(actions.setLoading(true));
+    dispatch(actionsRegistration.setLoading(true));
     if (password !== password2) {
-        dispatch(actions.setLoading(false));
-        dispatch(actions.setError('Correct your password'));
-        dispatch(actions.setPassword2(''));
+        dispatch(actionsRegistration.setLoading(false));
+        dispatch(actionsRegistration.setError('Correct your password'));
     } else {
         apiMethods.register(email, password)
             .then(data => {
-                debugger
                 if (data.success) {
-                    dispatch(actions.setSuccess(true));
+                    dispatch(actionsRegistration.setSuccess(true));
                 }
             })
             .catch(() => {
-                dispatch(actions.setLoading(false));
-                dispatch(actions.setSuccess(false));
-                dispatch(actions.setError('Invalid login or password. Try again'));
+                dispatch(actionsRegistration.setLoading(false));
+                dispatch(actionsRegistration.setSuccess(false));
+                dispatch(actionsRegistration.setError('Invalid login or password. Try again'));
             })
     }
 };
